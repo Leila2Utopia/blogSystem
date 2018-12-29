@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/bs/css/bootstrap.min.css">
+    <script src="/static/js/jquery-3.2.1.min.js"></script>
+    <script src="/static/bs/js/bootstrap.min.js"></script>
+    <script src="/static/kindeditor/kindeditor-all.js"></script>
+    <title>add_article</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        #title{
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+<div style="background-color:#5ea2d636">
+    <div class="row">
+        {#############################留白##############################}
+        <div class="col-sm-1"></div>
+        {#############################正文##############################}
+        <div class="col-sm-10" style="background-color:white">
+            <div id="title"><h3>添加文章</h3></div>
+            <form action="" method="post">
+                {% csrf_token %}
+                <div><h5>文章标题</h5></div>
+                <input type="text" name="title">
+                <div><h5>内容(TinyMCE编辑器，支持拖放/粘贴上传图片)</h5></div>
+                <div>
+                    <textarea name="article_content" id="article" cols="25" rows="8"></textarea>
+                </div>
+                <div style="margin-top:10px;"><input type="submit" class="pull-right btn btn-info"></div>
+
+            </form>
+        </div>
+        {#############################留白##############################}
+        <div class="col-sm-1"></div>
+    </div>
+
+</div>
+<script>
+    KindEditor.ready(function (K) {
+        window.editor = K.create('#article', {
+            width: "1050px",
+            height: "410px",
+            uploadJson: "/upload/",
+            extraFileUploadParams: {
+                "csrfmiddlewaretoken": $("[name='csrfmiddlewaretoken']").val()
+            },
+            filePostName: "upload_img"
+        });
+    });
+
+</script>
+
+</body>
+

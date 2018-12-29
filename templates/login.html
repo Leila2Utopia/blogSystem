@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/bs/css/bootstrap.min.css">
+    <title>login</title>
+    <style>
+        body{
+            background-color: #0378bb4a;
+        }
+        .form-horizontal{
+            border:20px solid #0378bb1a;
+            padding-top:30px;
+            padding-bottom: 50px;
+            padding-right:5px;
+            background-color: white;
+
+
+        }
+    </style>
+
+</head>
+<body>
+{% csrf_token %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-6" style="margin-top:100px">
+
+            <form class="form-horizontal" enctype="application/x-www-form-urlencoded">
+                <div style="padding-bottom: 10px;"><h4 class="text-center">登录账户</h4></div>
+
+                {###############################用户名#########################################}
+                <div class="form-group">
+                    <div class="col-sm-offset-1 col-sm-10">
+                        <input type="text" name='name12' class=" form-control" id="username" placeholder="用户名">
+                    </div>
+                </div>
+                {###############################密码#########################################}
+                <div class="form-group">
+                    <div class="col-sm-offset-1 col-sm-10">
+                        <input type="password" name='pwd12' class="form-control" id="password" placeholder="密码">
+                    </div>
+                </div>
+                {###############################验证码#########################################}
+                <div class="form-group">
+                    <div class="col-sm-offset-1 col-sm-10">
+                        <input type="text" name='valid' class="form-control col-sm-4" id="valid" placeholder="请输入验证码">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-1 col-sm-10">
+                        <img src="/valid_img/"  alt="" class="valid_img" width="250" height="36">
+                    </div>
+                </div>
+
+                {###############################error#########################################}
+                 <div class="form-group">
+                    <div class="col-sm-offset-1 col-sm-10">
+                        <div class="error"></div>
+                    </div>
+                </div>
+
+                {###############################登录#########################################}
+                <div class="form-group">
+                    <div class="col-sm-offset-1 col-sm-10">
+                        <button type="button" class="btn btn-primary btn-block" id="login">登录</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script src="/static/js/jquery-3.2.1.min.js"></script>
+<script src="/static/bs/js/bootstrap.min.js"></script>
+
+<script>
+
+    {#    登录验证   #}
+    $("#login").click(function () {
+        $.ajax({
+            url:"/login/",
+            type:'post',
+            data:{
+                "name":$("#username").val(),
+                "pwd":$("#password").val(),
+                "valid":$("#valid").val(),
+                'csrfmiddlewaretoken':$("[name='csrfmiddlewaretoken']").val(),
+            },
+            success:function (data) {
+                var data=JSON.parse(data);
+                if (!data.user){
+                    $('.error').html(data.msg).css("color",'red');
+                }
+                else{
+                    location.href='/login_success/'
+                }
+
+            }
+        })
+    })
+
+    {#  验证码局部刷新  #}
+    $(".valid_img").click(function () {
+        $(this)[0].src+='?'
+    })
+
+</script>
+
+</body>
+</html>

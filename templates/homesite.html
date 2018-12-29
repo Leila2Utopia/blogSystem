@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div>
+        {############################文章列表############################}
+        <div class="article_list" style="padding:20px;">
+            {% for article in page.object_list %}
+                <div class="article_item">
+                    <h5><a href="/blog/{{ username }}/articles/{{ article.pk }}">{{ article.title }}</a></h5>
+
+                    <div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="desc" style="text-align: justify">{{ article.desc }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="small info pull-right" style="margin-top:3px;">
+                    发布于
+                    <span>{{ article.create_time|date:'Y-m-d H:i' }}</span>&nbsp;&nbsp;
+                    <span class="glyphicon glyphicon-comment"
+                          style="color: #1b6d85">评论({{ article.comment_count }})</span>&nbsp;&nbsp;
+                    <span class="glyphicon glyphicon-thumbs-up" style="color: #1b6d85">点赞({{ article.up_count }})</span>
+                </div>
+                <hr>
+            {% endfor %}
+            {############################翻页############################}
+            <nav aria-label="Page navigation" class="pull-right">
+                <ul class="pagination">
+                    {######################### 上一页#########################}
+                    {% if page.has_previous %}
+                        <li><a href="?page={{ c_page|add:-1 }}">上一页</a></li>
+                    {% else %}
+                        <li class="disabled"><a aria-label="Next">上一页</a></li>
+                    {% endif %}
+                    {######################### 页码#########################}
+                    {% for num in paginator.page_range %}
+                        {% if c_page == num %}
+                            <li class="active"><a href="?page{{ num }}">{{ num }}</a></li>
+                        {% else %}
+                            <li><a href="?page={{ num }}">{{ num }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {######################### 下一页#########################}
+                    {% if page.has_next %}
+                        <li><a href="?page={{ c_page|add:+1 }}">下一页</a></li>
+                    {% else %}
+                        <li class="disabled"><a aria-label="Next">下一页</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,868 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="db">
+  <database-model serializer="dbm" rdbms="SQLITE" format-version="4.7">
+    <root id="1"/>
+    <schema id="2" parent="1" name="main">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <collation id="3" parent="1" name="BINARY"/>
+    <collation id="4" parent="1" name="NOCASE"/>
+    <collation id="5" parent="1" name="RTRIM"/>
+    <table id="6" parent="2" name="auth_group"/>
+    <table id="7" parent="2" name="auth_group_permissions"/>
+    <table id="8" parent="2" name="auth_permission"/>
+    <table id="9" parent="2" name="blog_article"/>
+    <table id="10" parent="2" name="blog_article2tag"/>
+    <table id="11" parent="2" name="blog_articledetail"/>
+    <table id="12" parent="2" name="blog_articleupdown"/>
+    <table id="13" parent="2" name="blog_blog"/>
+    <table id="14" parent="2" name="blog_category"/>
+    <table id="15" parent="2" name="blog_comment"/>
+    <table id="16" parent="2" name="blog_tag"/>
+    <table id="17" parent="2" name="blog_userinfo"/>
+    <table id="18" parent="2" name="blog_userinfo_groups"/>
+    <table id="19" parent="2" name="blog_userinfo_user_permissions"/>
+    <table id="20" parent="2" name="django_admin_log"/>
+    <table id="21" parent="2" name="django_content_type"/>
+    <table id="22" parent="2" name="django_migrations"/>
+    <table id="23" parent="2" name="django_session"/>
+    <table id="24" parent="2" name="sqlite_master">
+      <System>1</System>
+    </table>
+    <table id="25" parent="2" name="sqlite_sequence">
+      <System>1</System>
+    </table>
+    <column id="26" parent="6" name="id">
+      <Position>1</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="27" parent="6" name="name">
+      <Position>2</Position>
+      <DataType>varchar(80)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="28" parent="6" name="sqlite_autoindex_auth_group_1">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>name</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <key id="29" parent="6">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="30" parent="6">
+      <ColNames>name</ColNames>
+      <UnderlyingIndexName>sqlite_autoindex_auth_group_1</UnderlyingIndexName>
+    </key>
+    <column id="31" parent="7" name="id">
+      <Position>1</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="32" parent="7" name="group_id">
+      <Position>2</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="33" parent="7" name="permission_id">
+      <Position>3</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="34" parent="7" name="auth_group_permissions_group_id_permission_id_0cd325b0_uniq">
+      <ColNames>group_id
+permission_id</ColNames>
+      <ColumnCollations>
+</ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <index id="35" parent="7" name="auth_group_permissions_group_id_b120cbf9">
+      <ColNames>group_id</ColNames>
+      <ColumnCollations></ColumnCollations>
+    </index>
+    <index id="36" parent="7" name="auth_group_permissions_permission_id_84c5c92e">
+      <ColNames>permission_id</ColNames>
+      <ColumnCollations></ColumnCollations>
+    </index>
+    <key id="37" parent="7">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="38" parent="7">
+      <ColNames>group_id</ColNames>
+      <RefTableName>auth_group</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="39" parent="7">
+      <ColNames>permission_id</ColNames>
+      <RefTableName>auth_permission</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="40" parent="8" name="id">
+      <Position>1</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="41" parent="8" name="content_type_id">
+      <Position>2</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="42" parent="8" name="codename">
+      <Position>3</Position>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="43" parent="8" name="name">
+      <Position>4</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="44" parent="8" name="auth_permission_content_type_id_codename_01ab375a_uniq">
+      <ColNames>content_type_id
+codename</ColNames>
+      <ColumnCollations>
+</ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <index id="45" parent="8" name="auth_permission_content_type_id_2f476e4b">
+      <ColNames>content_type_id</ColNames>
+      <ColumnCollations></ColumnCollations>
+    </index>
+    <key id="46" parent="8">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="47" parent="8">
+      <ColNames>content_type_id</ColNames>
+      <RefTableName>django_content_type</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="48" parent="9" name="nid">
+      <Position>1</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="49" parent="9" name="title">
+      <Position>2</Position>
+      <DataType>varchar(50)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="50" parent="9" name="desc">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="51" parent="9" name="create_time">
+      <Position>4</Position>
+      <DataType>datetime|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="52" parent="9" name="comment_count">
+      <Position>5</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="53" parent="9" name="up_count">
+      <Position>6</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="54" parent="9" name="down_count">
+      <Position>7</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="55" parent="9" name="category_id">
+      <Position>8</Position>
+      <DataType>integer|0</DataType>
+    </column>
+    <column id="56" parent="9" name="user_id">
+      <Position>9</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="57" parent="9" name="blog_article_category_id_7e38f15e">
+      <ColNames>category_id</ColNames>
+      <ColumnCollations></ColumnCollations>
+    </index>
+    <index id="58" parent="9" name="blog_article_user_id_5beb0cc1">
+      <ColNames>user_id</ColNames>
+      <ColumnCollations></ColumnCollations>
+    </index>
+    <key id="59" parent="9">
+      <ColNames>nid</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="60" parent="9">
+      <ColNames>category_id</ColNames>
+      <RefTableName>blog_category</RefTableName>
+      <RefColNames>nid</RefColNames>
+    </foreign-key>
+    <foreign-key id="61" parent="9">
+      <ColNames>user_id</ColNames>
+      <RefTableName>blog_userinfo</RefTableName>
+      <RefColNames>nid</RefColNames>
+    </foreign-key>
+    <column id="62" parent="10" name="nid">
+      <Position>1</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="63" parent="10" name="article_id">
+      <Position>2</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="64" parent="10" name="tag_id">
+      <Position>3</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="65" parent="10" name="blog_article2tag_article_id_tag_id_b0745f42_uniq">
+      <ColNames>article_id
+tag_id</ColNames>
+      <ColumnCollations>
+</ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <index id="66" parent="10" name="blog_article2tag_article_id_753a2b60">
+      <ColNames>article_id</ColNames>
+      <ColumnCollations></ColumnCollations>
+    </index>
+    <index id="67" parent="10" name="blog_article2tag_tag_id_389b9a96">
+      <ColNames>tag_id</ColNames>
+      <ColumnCollations></ColumnCollations>
+    </index>
+    <key id="68" parent="10">
+      <ColNames>nid</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="69" parent="10">
+      <ColNames>article_id</ColNames>
+      <RefTableName>blog_article</RefTableName>
+      <RefColNames>nid</RefColNames>
+    </foreign-key>
+    <foreign-key id="70" parent="10">
+      <ColNames>tag_id</ColNames>
+      <RefTableName>blog_tag</RefTableName>
+      <RefColNames>nid</RefColNames>
+    </foreign-key>
+    <column id="71" parent="11" name="nid">
+      <Position>1</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="72" parent="11" name="content">
+      <Position>2</Position>
+      <DataType>text|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="73" parent="11" name="article_id">
+      <Position>3</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="74" parent="11" name="sqlite_autoindex_blog_articledetail_1">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>article_id</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <key id="75" parent="11">
+      <ColNames>nid</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="76" parent="11">
+      <ColNames>article_id</ColNames>
+      <UnderlyingIndexName>sqlite_autoindex_blog_articledetail_1</UnderlyingIndexName>
+    </key>
+    <foreign-key id="77" parent="11">
+      <ColNames>article_id</ColNames>
+      <RefTableName>blog_article</RefTableName>
+      <RefColNames>nid</RefColNames>
+    </foreign-key>
+    <column id="78" parent="12" name="nid">
+      <Position>1</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="79" parent="12" name="is_up">
+      <Position>2</Position>
+      <DataType>bool|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="80" parent="12" name="article_id">
+      <Position>3</Position>
+      <DataType>integer|0</DataType>
+    </column>
+    <column id="81" parent="12" name="user_id">
+      <Position>4</Position>
+      <DataType>integer|0</DataType>
+    </column>
+    <index id="82" parent="12" name="blog_articleupdown_article_id_user_id_fa3d0c08_uniq">
+      <ColNames>article_id
+user_id</ColNames>
+      <ColumnCollations>
+</ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <index id="83" parent="12" name="blog_articleupdown_article_id_9be1a8a2">
+      <ColNames>article_id</ColNames>
+      <ColumnCollations></ColumnCollations>
+    </index>
+    <index id="84" parent="12" name="blog_articleupdown_user_id_2c0ebe49">
+      <ColNames>user_id</ColNames>
+      <ColumnCollations></ColumnCollations>
+    </index>
+    <key id="85" parent="12">
+      <ColNames>nid</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="86" parent="12">
+      <ColNames>article_id</ColNames>
+      <RefTableName>blog_article</RefTableName>
+      <RefColNames>nid</RefColNames>
+    </foreign-key>
+    <foreign-key id="87" parent="12">
+      <ColNames>user_id</ColNames>
+      <RefTableName>blog_userinfo</RefTableName>
+      <RefColNames>nid</RefColNames>
+    </foreign-key>
+    <column id="88" parent="13" name="nid">
+      <Position>1</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="89" parent="13" name="title">
+      <Position>2</Position>
+      <DataType>varchar(64)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="90" parent="13" name="site">
+      <Position>3</Position>
+      <DataType>varchar(32)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="91" parent="13" name="theme">
+      <Position>4</Position>
+      <DataType>varchar(32)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="92" parent="13" name="sqlite_autoindex_blog_blog_1">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>site</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <key id="93" parent="13">
+      <ColNames>nid</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="94" parent="13">
+      <ColNames>site</ColNames>
+      <UnderlyingIndexName>sqlite_autoindex_blog_blog_1</UnderlyingIndexName>
+    </key>
+    <column id="95" parent="14" name="nid">
+      <Position>1</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="96" parent="14" name="title">
+      <Position>2</Position>
+      <DataType>varchar(32)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="97" parent="14" name="blog_id">
+      <Position>3</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="98" parent="14" name="blog_category_blog_id_80f0723a">
+      <ColNames>blog_id</ColNames>
+      <ColumnCollations></ColumnCollations>
+    </index>
+    <key id="99" parent="14">
+      <ColNames>nid</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="100" parent="14">
+      <ColNames>blog_id</ColNames>
+      <RefTableName>blog_blog</RefTableName>
+      <RefColNames>nid</RefColNames>
+    </foreign-key>
+    <column id="101" parent="15" name="nid">
+      <Position>1</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="102" parent="15" name="content">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="103" parent="15" name="create_time">
+      <Position>3</Position>
+      <DataType>datetime|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="104" parent="15" name="article_id">
+      <Position>4</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="105" parent="15" name="parent_comment_id">
+      <Position>5</Position>
+      <DataType>integer|0</DataType>
+    </column>
+    <column id="106" parent="15" name="user_id">
+      <Position>6</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="107" parent="15" name="blog_comment_article_id_3d58bca6">
+      <ColNames>article_id</ColNames>
+      <ColumnCollations></ColumnCollations>
+    </index>
+    <index id="108" parent="15" name="blog_comment_parent_comment_id_26791b9a">
+      <ColNames>parent_comment_id</ColNames>
+      <ColumnCollations></ColumnCollations>
+    </index>
+    <index id="109" parent="15" name="blog_comment_user_id_59a54155">
+      <ColNames>user_id</ColNames>
+      <ColumnCollations></ColumnCollations>
+    </index>
+    <key id="110" parent="15">
+      <ColNames>nid</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="111" parent="15">
+      <ColNames>article_id</ColNames>
+      <RefTableName>blog_article</RefTableName>
+      <RefColNames>nid</RefColNames>
+    </foreign-key>
+    <foreign-key id="112" parent="15">
+      <ColNames>parent_comment_id</ColNames>
+      <RefTableName>blog_comment</RefTableName>
+      <RefColNames>nid</RefColNames>
+    </foreign-key>
+    <foreign-key id="113" parent="15">
+      <ColNames>user_id</ColNames>
+      <RefTableName>blog_userinfo</RefTableName>
+      <RefColNames>nid</RefColNames>
+    </foreign-key>
+    <column id="114" parent="16" name="nid">
+      <Position>1</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="115" parent="16" name="title">
+      <Position>2</Position>
+      <DataType>varchar(32)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="116" parent="16" name="blog_id">
+      <Position>3</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="117" parent="16" name="blog_tag_blog_id_a8c60c42">
+      <ColNames>blog_id</ColNames>
+      <ColumnCollations></ColumnCollations>
+    </index>
+    <key id="118" parent="16">
+      <ColNames>nid</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="119" parent="16">
+      <ColNames>blog_id</ColNames>
+      <RefTableName>blog_blog</RefTableName>
+      <RefColNames>nid</RefColNames>
+    </foreign-key>
+    <column id="120" parent="17" name="password">
+      <Position>1</Position>
+      <DataType>varchar(128)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="121" parent="17" name="last_login">
+      <Position>2</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="122" parent="17" name="is_superuser">
+      <Position>3</Position>
+      <DataType>bool|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="123" parent="17" name="username">
+      <Position>4</Position>
+      <DataType>varchar(150)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="124" parent="17" name="first_name">
+      <Position>5</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="125" parent="17" name="last_name">
+      <Position>6</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="126" parent="17" name="email">
+      <Position>7</Position>
+      <DataType>varchar(254)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="127" parent="17" name="is_staff">
+      <Position>8</Position>
+      <DataType>bool|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="128" parent="17" name="is_active">
+      <Position>9</Position>
+      <DataType>bool|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="129" parent="17" name="date_joined">
+      <Position>10</Position>
+      <DataType>datetime|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="130" parent="17" name="nid">
+      <Position>11</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="131" parent="17" name="telephone">
+      <Position>12</Position>
+      <DataType>varchar(11)|0</DataType>
+    </column>
+    <column id="132" parent="17" name="avator">
+      <Position>13</Position>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="133" parent="17" name="create_time">
+      <Position>14</Position>
+      <DataType>datetime|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="134" parent="17" name="blog_id">
+      <Position>15</Position>
+      <DataType>integer|0</DataType>
+    </column>
+    <index id="135" parent="17" name="sqlite_autoindex_blog_userinfo_1">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>username</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <index id="136" parent="17" name="sqlite_autoindex_blog_userinfo_2">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>telephone</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <index id="137" parent="17" name="sqlite_autoindex_blog_userinfo_3">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>blog_id</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <key id="138" parent="17">
+      <ColNames>nid</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="139" parent="17">
+      <ColNames>username</ColNames>
+      <UnderlyingIndexName>sqlite_autoindex_blog_userinfo_1</UnderlyingIndexName>
+    </key>
+    <key id="140" parent="17">
+      <ColNames>telephone</ColNames>
+      <UnderlyingIndexName>sqlite_autoindex_blog_userinfo_2</UnderlyingIndexName>
+    </key>
+    <key id="141" parent="17">
+      <ColNames>blog_id</ColNames>
+      <UnderlyingIndexName>sqlite_autoindex_blog_userinfo_3</UnderlyingIndexName>
+    </key>
+    <foreign-key id="142" parent="17">
+      <ColNames>blog_id</ColNames>
+      <RefTableName>blog_blog</RefTableName>
+      <RefColNames>nid</RefColNames>
+    </foreign-key>
+    <column id="143" parent="18" name="id">
+      <Position>1</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="144" parent="18" name="userinfo_id">
+      <Position>2</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="145" parent="18" name="group_id">
+      <Position>3</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="146" parent="18" name="blog_userinfo_groups_userinfo_id_group_id_5f60ecec_uniq">
+      <ColNames>userinfo_id
+group_id</ColNames>
+      <ColumnCollations>
+</ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <index id="147" parent="18" name="blog_userinfo_groups_userinfo_id_f6f0498b">
+      <ColNames>userinfo_id</ColNames>
+      <ColumnCollations></ColumnCollations>
+    </index>
+    <index id="148" parent="18" name="blog_userinfo_groups_group_id_1fb5e93a">
+      <ColNames>group_id</ColNames>
+      <ColumnCollations></ColumnCollations>
+    </index>
+    <key id="149" parent="18">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="150" parent="18">
+      <ColNames>userinfo_id</ColNames>
+      <RefTableName>blog_userinfo</RefTableName>
+      <RefColNames>nid</RefColNames>
+    </foreign-key>
+    <foreign-key id="151" parent="18">
+      <ColNames>group_id</ColNames>
+      <RefTableName>auth_group</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="152" parent="19" name="id">
+      <Position>1</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="153" parent="19" name="userinfo_id">
+      <Position>2</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="154" parent="19" name="permission_id">
+      <Position>3</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="155" parent="19" name="blog_userinfo_user_permissions_userinfo_id_permission_id_7d343093_uniq">
+      <ColNames>userinfo_id
+permission_id</ColNames>
+      <ColumnCollations>
+</ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <index id="156" parent="19" name="blog_userinfo_user_permissions_userinfo_id_57e76697">
+      <ColNames>userinfo_id</ColNames>
+      <ColumnCollations></ColumnCollations>
+    </index>
+    <index id="157" parent="19" name="blog_userinfo_user_permissions_permission_id_ace80f7e">
+      <ColNames>permission_id</ColNames>
+      <ColumnCollations></ColumnCollations>
+    </index>
+    <key id="158" parent="19">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="159" parent="19">
+      <ColNames>userinfo_id</ColNames>
+      <RefTableName>blog_userinfo</RefTableName>
+      <RefColNames>nid</RefColNames>
+    </foreign-key>
+    <foreign-key id="160" parent="19">
+      <ColNames>permission_id</ColNames>
+      <RefTableName>auth_permission</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="161" parent="20" name="id">
+      <Position>1</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="162" parent="20" name="object_id">
+      <Position>2</Position>
+      <DataType>text|0</DataType>
+    </column>
+    <column id="163" parent="20" name="object_repr">
+      <Position>3</Position>
+      <DataType>varchar(200)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="164" parent="20" name="action_flag">
+      <Position>4</Position>
+      <DataType>smallint unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="165" parent="20" name="change_message">
+      <Position>5</Position>
+      <DataType>text|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="166" parent="20" name="content_type_id">
+      <Position>6</Position>
+      <DataType>integer|0</DataType>
+    </column>
+    <column id="167" parent="20" name="user_id">
+      <Position>7</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="168" parent="20" name="action_time">
+      <Position>8</Position>
+      <DataType>datetime|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="169" parent="20" name="django_admin_log_content_type_id_c4bce8eb">
+      <ColNames>content_type_id</ColNames>
+      <ColumnCollations></ColumnCollations>
+    </index>
+    <index id="170" parent="20" name="django_admin_log_user_id_c564eba6">
+      <ColNames>user_id</ColNames>
+      <ColumnCollations></ColumnCollations>
+    </index>
+    <key id="171" parent="20">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="172" parent="20">
+      <ColNames>content_type_id</ColNames>
+      <RefTableName>django_content_type</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="173" parent="20">
+      <ColNames>user_id</ColNames>
+      <RefTableName>blog_userinfo</RefTableName>
+      <RefColNames>nid</RefColNames>
+    </foreign-key>
+    <column id="174" parent="21" name="id">
+      <Position>1</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="175" parent="21" name="app_label">
+      <Position>2</Position>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="176" parent="21" name="model">
+      <Position>3</Position>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="177" parent="21" name="django_content_type_app_label_model_76bd3d3b_uniq">
+      <ColNames>app_label
+model</ColNames>
+      <ColumnCollations>
+</ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <key id="178" parent="21">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="179" parent="22" name="id">
+      <Position>1</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="180" parent="22" name="app">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="181" parent="22" name="name">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="182" parent="22" name="applied">
+      <Position>4</Position>
+      <DataType>datetime|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="183" parent="22">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="184" parent="23" name="session_key">
+      <Position>1</Position>
+      <DataType>varchar(40)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="185" parent="23" name="session_data">
+      <Position>2</Position>
+      <DataType>text|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="186" parent="23" name="expire_date">
+      <Position>3</Position>
+      <DataType>datetime|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="187" parent="23" name="sqlite_autoindex_django_session_1">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>session_key</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <index id="188" parent="23" name="django_session_expire_date_a5c62663">
+      <ColNames>expire_date</ColNames>
+      <ColumnCollations></ColumnCollations>
+    </index>
+    <key id="189" parent="23">
+      <ColNames>session_key</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>sqlite_autoindex_django_session_1</UnderlyingIndexName>
+    </key>
+    <column id="190" parent="24" name="type">
+      <Position>1</Position>
+      <DataType>text|0</DataType>
+    </column>
+    <column id="191" parent="24" name="name">
+      <Position>2</Position>
+      <DataType>text|0</DataType>
+    </column>
+    <column id="192" parent="24" name="tbl_name">
+      <Position>3</Position>
+      <DataType>text|0</DataType>
+    </column>
+    <column id="193" parent="24" name="rootpage">
+      <Position>4</Position>
+      <DataType>integer|0</DataType>
+    </column>
+    <column id="194" parent="24" name="sql">
+      <Position>5</Position>
+      <DataType>text|0</DataType>
+    </column>
+    <column id="195" parent="25" name="name">
+      <Position>1</Position>
+    </column>
+    <column id="196" parent="25" name="seq">
+      <Position>2</Position>
+    </column>
+  </database-model>
+</dataSource>

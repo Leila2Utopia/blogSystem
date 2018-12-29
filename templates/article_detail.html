@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block content %}
+    {#################################文章内容##################################}
+
+
+    <h3 class="text-center">{{ article_obj.title }}</h3>
+    <div>
+        {{ article_obj.articledetail.content|safe }}
+    </div>
+    {#################################点赞踩灭##################################}
+    <div class="poll clearfix">
+        <div id="div_digg" class="clearfix">
+            <div class="diggit action">
+                <span class="diggnum" id="digg_count">{{ article_obj.up_count }}</span>
+            </div>
+            <div class="buryit action">
+                <span class="burynum" id="bury_count">{{ article_obj.down_count }}</span>
+            </div>
+            <div class="clear"></div>
+
+        </div>
+    </div>
+    <div class="diggword pull-right" id="digg_tips" style="color:red;margin-right:20px;"></div>
+
+
+    {#################################用户信息##################################}
+    <div class="info" article_id="{{ article_obj.pk }}" username="{{ request.user.username }}"></div>
+    {% csrf_token %}
+
+    {#################################评论内容##################################}
+    {#################################评论树##################################}
+    {#    <div class="comment_tree">#}
+    {#    <div class="glyphicon glyphicon-edit"><span style="margin-left:10px;">评论列表</span></div>#}
+
+
+
+    </div>
+
+    {#################################评论楼##################################}
+    <div class="row">
+        <div class="col-sm-offset-4 col-sm-5">
+            <ul class="comment_list list-group">
+                <div class="glyphicon glyphicon-list-alt"><span style="margin-left:10px;">评论列表</span></div>
+                <div >
+                    {% for comment in comment_list %}
+                        <div style="margin-top:10px;margin-bottom: 10px;padding-left:10px;: ">
+                                    <a href="">#{{ forloop.counter }}</a>楼 &nbsp;&nbsp;&nbsp;
+                                    <span>{{ comment.create_time|date:"Y-m-d H:i" }}</span>&nbsp;&nbsp;
+                                    <span>{{ comment.user.username }}</span>
+                                    <a class="pull-right reply_btn" username="{{ comment.user.username }}"
+                                       comment_id="{{ comment.pk }}"><span>回复</span></a>
+                                </div>
+                        <li class="comment_item list-group-item" style="margin-bottom: 10px;padding: 0">
+                            <div>
+
+                                <div>
+                                    {% if comment.parent_comment_id %}
+                                        <div class="parent_comment_info well">
+                                            {{ comment.parent_comment.user.username }}:{{ comment.parent_comment.content }}
+                                        </div>
+
+                                    {% endif %}
+
+                                    <div class="comment_con">
+                                        <p>{{ comment.content }}</p>
+                                    </div>
+
+
+                                </div>
+
+
+                            </div>
+
+
+                        </li>
+                    {% endfor %}
+                </div>
+            </ul>
+
+            {#################################输入评论##################################}
+            <div class="comment">
+                 <div class="glyphicon glyphicon-edit"><span style="margin-left:10px;">发表评论</span></div>
+                <div style="margin-top:10px;">
+                    昵称
+                    <input type="text" id="tbCommentAuthor" class="author" disabled="disabled" size="40"
+                           value="{{ request.user.username }}">
+                </div>
+                <div>
+                    <p style="margin-top:10px;">评论内容</p>
+                    <textarea name="" id="comment_content" cols="50" rows="10"></textarea>
+                </div>
+                <button class="btn btn-info comment_btn" style="margin-top:10px;">提交评论</button>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script src="/static/js/article_detail.js"></script>
+{% endblock %}
+

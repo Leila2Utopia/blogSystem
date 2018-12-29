@@ -1,0 +1,47 @@
+
+/*点赞踩灭*/
+#div_digg{
+    float:right;
+    margin-bottom:10px;
+    margin-right:10px;
+    font-size:12px;
+    width:125px;
+    text-align:center;
+    margin-top:10px;
+}
+
+.diggit{
+    float:left;
+    width:46px;
+    height:52px;
+    background: url('/static/img/upup.gif') no-repeat;
+    text-align:center;
+    cursor: pointer;
+    margin-top:2px;
+    padding-top: 5px;
+}
+
+.buryit{
+    float:left;
+    margin-left:20px;
+    width:46px;
+    height:52px;
+    background: url('/static/img/downdown.gif') no-repeat;
+    text-align:center;
+    cursor: pointer;
+    margin-top:2px;
+    padding-top: 5px;
+}
+
+.clear{
+    clear:both;
+}
+
+input.author{
+    background: url("/static/img/icon_form.gif") no-repeat;
+    border:1px solid #ccc;
+    padding:4px 4px 4px 30px;
+    width:300px;
+    font-size:13px;
+}
+

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/bs/css/bootstrap.min.css">
+    <title>reg</title>
+    <style>
+        body {
+            background-color: #0378bb4a;
+        }
+
+        .form-horizontal {
+            border: 20px solid #0378bb1a;
+            padding-top: 30px;
+            padding-bottom: 30px;
+            padding-right: 15px;
+            background-color: white;
+        }
+
+        .avator_img {
+            width: 60px;
+            height: 60px;
+            margin-left: 20px;
+        }
+
+        #avatar {
+            display: none;
+        }
+
+        span {
+            font-size: 10px;
+            margin-top: 5px;
+        }
+    </style>
+
+</head>
+<body>
+{% csrf_token %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-6" style="margin-top:50px">
+
+            <form class="form-horizontal">
+                <div style="padding-bottom: 10px;"><h4 class="text-center">注册账户</h4></div>
+
+                {###############################用户名#########################################}
+                <div class="form-group">
+                    <div class="col-sm-offset-1 col-sm-10">
+                        <input type="text" name='name12' class=" form-control" id="username" placeholder="用户名">
+                        <span class="pull-right text-danger error"></span>
+                    </div>
+                </div>
+                {###############################密码#########################################}
+                <div class="form-group">
+                    <div class="col-sm-offset-1 col-sm-10">
+                        <input type="password" name='pwd12' class="form-control" id="password" placeholder="密码">
+                        <span class="pull-right text-danger error"></span>
+                    </div>
+                </div>
+
+                {###############################重复密码#########################################}
+                <div class="form-group">
+                    <div class="col-sm-offset-1 col-sm-10">
+                        <input type="password" name='pwd' class="form-control" id="repeat_pwd" placeholder="重复密码">
+                        <span class="pull-right text-danger error" ></span>
+                    </div>
+                </div>
+
+                {###############################邮箱#########################################}
+                <div class="form-group">
+                    <div class="col-sm-offset-1 col-sm-10">
+                        <input type="email" name='email' class="form-control" id="email" placeholder="邮箱">
+                        <span class="pull-right text-danger error"></span>
+                    </div>
+                </div>
+
+                {###############################头像#########################################}
+                <div class="form-group">
+                    <div class="col-sm-offset-1 col-sm-10">
+
+                        <label for="avatar"> 上传头像<img src="/static/img/default.png" alt="" class="avator_img"></label>
+                        <input type="file" id="avatar" class="form-control">
+                    </div>
+                </div>
+
+                {###############################注册#########################################}
+                <div class="form-group">
+                    <div class="col-sm-offset-1 col-sm-10">
+                        <button type="button" class="btn btn-primary btn-block" id="reg_btn">注册</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script src="/static/js/jquery-3.2.1.min.js"></script>
+<script src="/static/bs/js/bootstrap.min.js"></script>
+
+<script>
+    {#头像预览#}
+    $("#avatar").change(function () {
+        var reader = new FileReader();
+        var choose_file = $(this)[0].files[0];
+        reader.readAsDataURL(choose_file);
+        reader.onload = function () {
+            $(".avator_img").attr("src", reader.result)
+        };
+    });
+
+    {#注册#}
+    $("#reg_btn").click(function () {
+        var formdata = new FormData();
+        formdata.append("username", $("#username").val());
+        formdata.append("password", $("#password").val());
+        formdata.append("repeat_pwd", $("#repeat_pwd").val());
+        formdata.append("email", $("#email").val());
+        formdata.append("avatar", $("#avatar")[0].files[0]);
+        formdata.append("csrfmiddlewaretoken",$("[name='csrfmiddlewaretoken']").val());
+
+
+        $.ajax({
+            url: '/reg/',
+            type: "post",
+            contentType: false,
+            processData: false,
+            data: formdata,
+            success: function (data) {
+                var data=JSON.parse(data);
+                if (data.user) {
+                    location.href="/login/"
+                }
+                else {
+                    {#清空操作#}
+                    $("span.error").html("");
+                    console.log(data.msg);
+                    var errors=data.msg;
+                    for ( var i in errors){
+                        if (i==="__all__"){
+                            $("#repeat_pwd").next().text(errors[i][0])
+                        }
+                        else {
+                            $('#'+i).next().text(errors[i][0])
+                        }
+                        }
+                    }
+                }
+            })
+
+
+        })
+
+
+
+</script>
+
+</body>
+</html>

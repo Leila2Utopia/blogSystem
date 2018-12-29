@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/bs/css/bootstrap.min.css">
+
+    <title>index</title>
+    <style>
+        .article_item .info {
+            margin-top: 10px;
+        }
+
+        .desc {
+            margin-left: -28px;
+            text-align: justify;
+        }
+
+        #bs-example-navbar-collapse-1 {
+            background-color: #0378bb96;
+
+        }
+    </style>
+
+</head>
+<body>
+{#####################################导航条##################################################}
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <a style="margin-left:20px;color:#fff" class="navbar-brand" href="#">博客园</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="#" style="color:#fff">文章 <span class="sr-only">(current)</span></a></li>
+                <li><a href="#" style="color:#fff">小组</a></li>
+                <li><a href="#" style="color:#fff">新闻</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                {% if request.user.username %}
+                    <li><a href="#" style="color:#fff">{{ request.user.username }} </a></li>
+                    <li><a href="/logout/" style="color:#fff">退出</a></li>
+                    {#                    <li><a href="">修改密码</a></li>#}
+                {% else %}
+                    <li><a href="/login/" style="color:#fff">登录</a></li>
+                    <li><a style="margin-right:20px;color:#fff" href="/reg/">注册</a></li>
+                {% endif %}
+
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+<div class="container-fluid">
+
+    <div class="row">
+        {#####################################左侧导航栏##################################################}
+        <div class="col-sm-2">
+            <div class="bs-example" data-example-id="contextual-panels">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Panel title</h3>
+                    </div>
+                    <div class="panel-body">
+                        Panel content
+                    </div>
+                </div>
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Panel title</h3>
+                    </div>
+                    <div class="panel-body">
+                        Panel content
+                    </div>
+                </div>
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Panel title</h3>
+                    </div>
+                    <div class="panel-body">
+                        Panel content
+                    </div>
+                </div>
+                <div class="panel panel-warning">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Panel title</h3>
+                    </div>
+                    <div class="panel-body">
+                        Panel content
+                    </div>
+                </div>
+                <div class="panel panel-danger">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Panel title</h3>
+                    </div>
+                    <div class="panel-body">
+                        Panel content
+                    </div>
+                </div>
+            </div>
+        </div>
+        {#####################################文章列表##################################################}
+        <div class="col-sm-8">
+            <div class="article_list">
+                {% for article in page.object_list %}
+                    <div class="article_item">
+                        <h5><a href="/blog/{{ article.user.username }}">{{ article.title }}</a></h5>
+                        <div class="row">
+                            <div class="col-sm-2"><img width=80 height=60 src="/media/{{ article.user.avator }}" alt="">
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="desc">
+                                    {{ article.desc }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="small info">
+                            <a href="/blog/{{ article.user.username }}"><span
+                                    style="vertical-align: -2px">{{ article.user.username }}</span></a>&nbsp;&nbsp;
+                            <span style="vertical-align: -2px">发布于</span>
+                            <span style="vertical-align: -2px">{{ article.create_time|date:"Y-m-d H:i" }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="glyphicon glyphicon-thumbs-up"
+                                  style="vertical-align: -2px;color:#1b6d85">点赞({{ article.comment_count }})</span>&nbsp;&nbsp;
+                            <span class="glyphicon glyphicon-comment"
+                                  style="vertical-align: -2px;color:#1b6d85">评论({{ article.up_count }})</span>
+                        </div>
+                    </div>
+                    <hr>
+                {% endfor %}
+
+            </div>
+            <nav aria-label="Page navigation" class="pull-right">
+                <ul class="pagination">
+                    {######################### 上一页#########################}
+                    {% if page.has_previous %}
+                        <li><a href="?page={{ c_page|add:-1 }}">上一页</a></li>
+                    {% else %}
+                        <li class="disabled"><a aria-label="Next">上一页</a></li>
+                    {% endif %}
+                    {######################### 页码#########################}
+                    {% for num in paginator.page_range %}
+                        {% if c_page == num %}
+                            <li class="active"><a href="?page{{ num }}">{{ num }}</a></li>
+                        {% else %}
+                            <li><a href="?page={{ num }}">{{ num }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {######################### 下一页#########################}
+                    {% if page.has_next %}
+                        <li><a href="?page={{ c_page|add:+1 }}">下一页</a></li>
+                    {% else %}
+                        <li class="disabled"><a aria-label="Next">下一页</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+
+        </div>
+        {#####################################右侧导航栏##################################################}
+        <div class="col-sm-2">
+            <div class="bs-example" data-example-id="contextual-panels">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Panel title</h3>
+                    </div>
+                    <div class="panel-body">
+                        Panel content
+                    </div>
+                </div>
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Panel title</h3>
+                    </div>
+                    <div class="panel-body">
+                        Panel content
+                    </div>
+                </div>
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Panel title</h3>
+                    </div>
+                    <div class="panel-body">
+                        Panel content
+                    </div>
+                </div>
+                <div class="panel panel-warning">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Panel title</h3>
+                    </div>
+                    <div class="panel-body">
+                        Panel content
+                    </div>
+                </div>
+                <div class="panel panel-danger">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Panel title</h3>
+                    </div>
+                    <div class="panel-body">
+                        Panel content
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<script src="/static/js/jquery-3.2.1.min.js"></script>
+<script src="/static/bs/js/bootstrap.min.js"></script>
+
+</body>
+</html>
